@@ -31,7 +31,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ${{ env.GOOGLE_REGION }}-docker.pkg.dev
-          username: oauth2accesstoken
+          username: _json_key
           password: ${{ steps.auth.outputs.access_token }}
           
       - name: 'Docker push'
