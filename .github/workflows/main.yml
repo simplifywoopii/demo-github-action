@@ -10,17 +10,17 @@ env:
   GOOGLE_REGION: ${{ vars.GCP_REGION }}
   GCR_REPOSITORY_NAME: ${{ vars.GCR_REPOSITORY_NAME }}
   IMAGE: nginx-test
-  DOCKER_HOST: tcp://docker:2375/
+  # DOCKER_HOST: tcp://docker:2375/
 
 jobs:
   push:
-    runs-on: ubuntu-latest
-    services:
-      docker:
-        image: docker:dind
-        options: --privileged
-        ports:
-          - 2375:2375
+    # runs-on: ubuntu-latest
+    # services:
+    #   docker:
+    #     image: docker:dind
+    #     options: --privileged
+    #     ports:
+    #       - 2375:2375
     steps:
       - uses: actions/checkout@v4
       - uses: 'google-github-actions/auth@v2'
