@@ -23,14 +23,21 @@ jobs:
           credentials_json: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
           token_format: access_token
 
-      - name: 'Docker Login'
-        run: |-
-          cat ${{ env.GOOGLE_APPLICATION_CREDENTIALS }} | docker login -u _json_key --password-stdin us-central1-docker.pkg.dev
+      # - name: 'Docker Login'
+      #   run: |-
+      #     cat ${{ env.GOOGLE_APPLICATION_CREDENTIALS }} | docker login -u _json_key --password-stdin us-central1-docker.pkg.dev
+
+      - name: Login to GAR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.GOOGLE_REGION }}-docker.pkg.dev
+          username: oauth2accesstoken
+          password: ${{ steps.auth.outputs.access_token }}
           
       - name: 'Docker push'
         uses: docker/build-push-action@v5
         with:
-          # context: .
+          context: .
           push: true
           tags: ${{ env.GOOGLE_REGION }}-docker-pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCR_REPOSITORY_NAME }}/${{ env.IMAGE }}:${{ github.sha }}
           
