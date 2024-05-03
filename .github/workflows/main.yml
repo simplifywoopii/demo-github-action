@@ -33,9 +33,8 @@ jobs:
       - name: 'Docker push'
         uses: docker/build-push-action@v5
         with:
-          context: .
           push: true
-          tags: ${{ env.GOOGLE_REGION }}-docker-pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCR_REPOSITORY_NAME }}/${{ env.IMAGE }}:${{ github.sha }}
+          tags: ${{ vars.GOOGLE_REGION }}-docker-pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ vars.GCR_REPOSITORY_NAME }}/${{ vars.IMAGE }}:${{ github.sha }}
           
 
           
