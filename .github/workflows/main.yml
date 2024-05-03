@@ -10,17 +10,13 @@ env:
   GOOGLE_REGION: ${{ vars.GCP_REGION }}
   GCR_REPOSITORY_NAME: ${{ vars.GCR_REPOSITORY_NAME }}
   IMAGE: nginx
-  # DOCKER_HOST: tcp://docker:2375/
+  DEMO_HELM_GIT_TOKEN: ${{ secrets.DEMO_HELM_GIT_TOKEN }}
+  TARGET_REPOSITORY: ${{ vars.TARGET_REPOSITORY }}
+  
 
 jobs:
   push:
     runs-on: ubuntu-latest
-    # services:
-    #   docker:
-    #     image: docker:dind
-    #     options: --privileged
-    #     ports:
-    #       - 2375:2375
     steps:      
       - uses: actions/checkout@v4
       - uses: 'google-github-actions/auth@v2'
@@ -43,7 +39,23 @@ jobs:
           context: .
           push: true
           tags: ${{ env.GOOGLE_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCR_REPOSITORY_NAME }}/${{ env.IMAGE }}:${{ github.sha }}
-          
 
-          
+      
+  deploy:
+    runs-on: ubuntu-latest
+    steps:      
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ env.TARGET_REPOSITORY }}
+          token: ${{ env.DEMO_HELM_GIT_TOKEN }}
+      - uses: fjogeleit/yaml-update-action@main
+        with:
+          valueFile: 'values.yaml'
+          propertyPath: 'image.tag'
+          value: ${{ github.sha }}
+          message: 'ci: Update image tag to ${{ github.sha }}'
+          commitChange: true
+          branch: main
+          repository: ${{ env.TARGET_REPOSITORY }}
+        
     
