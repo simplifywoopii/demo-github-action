@@ -22,7 +22,7 @@ jobs:
         name: 'Authenticate to Google Cloud'
         with:
           credentials_json: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
-          token_format: access_token
+ #         token_format: access_token
       
       # https://docs.docker.com/build/ci/github-actions/
       - uses: docker/login-action@v3
