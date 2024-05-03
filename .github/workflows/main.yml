@@ -22,6 +22,7 @@ jobs:
         name: 'Authenticate to Google Cloud'
         with:
           credentials_json: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
+          token_format: access_token
       
       # https://docs.docker.com/build/ci/github-actions/
       - uses: docker/login-action@v3
@@ -29,8 +30,10 @@ jobs:
         with:
           # registry: '${{ env.GOOGLE_REGION }}-docker.pkg.dev'
           registry: us-central1-docker.pkg.dev
-          username: _json_key
-          password: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
+          # username: _json_key
+          username: oauth2accesstoken
+          # password: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
+          password: ${{ steps.auth.outputs.access_token }}
           
       - uses: docker/build-push-action@v5
         with:
