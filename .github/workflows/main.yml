@@ -5,7 +5,7 @@ on:
       - main
 
 env:
-  GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+  # GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
   GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   GOOGLE_REGION: ${{ vars.GCP_REGION }}
   GCR_REPOSITORY_NAME: ${{ vars.GCR_REPOSITORY_NAME }}
@@ -20,19 +20,15 @@ jobs:
         id: "auth"
         name: 'Authenticate to Google Cloud'
         with:
-          credentials_json: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
+          credentials_json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
           token_format: access_token
-
-      # - name: 'Docker Login'
-      #   run: |-
-      #     cat ${{ env.GOOGLE_APPLICATION_CREDENTIALS }} | docker login -u _json_key --password-stdin us-central1-docker.pkg.dev
 
       - name: Login to GAR
         uses: docker/login-action@v3
         with:
           registry: ${{ env.GOOGLE_REGION }}-docker.pkg.dev
           username: _json_key
-          password: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }} 
+          password: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }} 
           
       - name: 'Docker push'
         uses: docker/build-push-action@v5
