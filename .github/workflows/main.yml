@@ -31,7 +31,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.GOOGLE_REGION }}-docker-pkg-dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCR_REPOSITORY_NAME }}/${{ env.IMAGE }}:${{ github.sha }}
+          tags: ${{ env.GOOGLE_REGION }}-docker-pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCR_REPOSITORY_NAME }}/${{ env.IMAGE }}:${{ github.sha }}
 
           
     
