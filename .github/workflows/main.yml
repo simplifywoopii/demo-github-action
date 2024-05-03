@@ -28,8 +28,8 @@ jobs:
         name: "Docker Login"
         with:
           registry: '${{ env.GOOGLE_REGION }}-docker.pkg.dev'
-          username: 'oauth2accesstoken'
-          password: '${{ steps.auth.outputs.access_token }}'
+          username: _json_key
+          password: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
           
       - uses: docker/build-push-action@v5
         with:
