@@ -28,9 +28,11 @@ jobs:
           cat ${{ env.GOOGLE_APPLICATION_CREDENTIALS }} | docker login -u _json_key --password-stdin us-central1-docker.pkg.dev
           
       - name: 'Docker push'
-        run: |-
-          docker build . -t ${{ env.GOOGLE_REGION }}-docker-pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCR_REPOSITORY_NAME }}/${{ env.IMAGE }}:${{ github.sha }}
-          docker push ${{ env.GOOGLE_REGION }}-docker-pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCR_REPOSITORY_NAME }}/${{ env.IMAGE }}:${{ github.sha }}
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ env.GOOGLE_REGION }}-docker-pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCR_REPOSITORY_NAME }}/${{ env.IMAGE }}:${{ github.sha }}
           
 
           
