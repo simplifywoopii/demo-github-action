@@ -32,7 +32,8 @@ jobs:
 
       - name: 'Docker Login'
         run: |-
-          cat ${{ env.GOOGLE_APPLICATION_CREDENTIALS }} | docker login -u _json_key --password-stdin ${{ env.GOOGLE_REGION }}-docker-pkg.dev
+          echo ${{ env.GOOGLE_APPLICATION_CREDENTIALS }} | cat ./key.json 
+          cat ./key.json | docker login -u _json_key --password-stdin ${{ env.GOOGLE_REGION }}-docker-pkg.dev
 
 
 
