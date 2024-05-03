@@ -43,7 +43,7 @@ jobs:
           context: .
           push: true
           # tags: us-central1-docker.pkg.dev/devops-421112/simplifywoopii-apps/${{ env.IMAGE }}:${{ github.sha }}
-          tags: ${{ env.GOOGLE_REGION }}-docker-pkg.dev/devops-421112/${{ env.GCR_REPOSITORY_NAME }}/${{ env.IMAGE }}:${{ github.sha }}
+          tags: ${{ vars.GCP_REGION }}-docker-pkg.dev/devops-421112/${{ vars.GCR_REPOSITORY_NAME }}/${{ env.IMAGE }}:${{ github.sha }}
           
 
           
