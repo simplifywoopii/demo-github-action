@@ -32,10 +32,7 @@ jobs:
 
       - name: 'Docker Login'
         run: -|
-          gcloud auth print-access-token \
-          --impersonate-service-account ${{ env.GOOGLE_APPLICATION_CREDENTIALS }} | docker login \
-          -u oauth2accesstoken \
-          --password-stdin https://${{ env.GOOGLE_REGION }}-docker.pkg.dev
+          cat ${{ env.GOOGLE_APPLICATION_CREDENTIALS }} | docker login -u _json_key --password-stdin ${{ env.GOOGLE_REGION }}-docker-pkg.dev
 
 
 
