@@ -27,7 +27,8 @@ jobs:
       - uses: docker/login-action@v3
         name: "Docker Login"
         with:
-          registry: '${{ env.GOOGLE_REGION }}-docker.pkg.dev'
+          # registry: '${{ env.GOOGLE_REGION }}-docker.pkg.dev'
+          registry: us-central1-docker.pkg.dev
           username: _json_key
           password: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
           
