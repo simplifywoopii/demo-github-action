@@ -30,8 +30,8 @@ jobs:
         with:
           # registry: '${{ env.GOOGLE_REGION }}-docker.pkg.dev'
           registry: us-central1-docker.pkg.dev
-          # username: _json_key
-          username: oauth2accesstoken
+          username: _json_key
+          # username: oauth2accesstoken
           # password: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
           password: ${{ steps.auth.outputs.access_token }}
           
